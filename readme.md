@@ -1,9 +1,10 @@
 # Кастомная сортировка таблиц в DevelNext
 ![Screenshot](https://user-images.githubusercontent.com/3524731/33519347-f123ad26-d7b5-11e7-8df0-d94ef9dbfd46.png)
+
 **Демо проект: [https://hub.develnext.org/project/sFRAgEmQzKNb](https://hub.develnext.org/project/sFRAgEmQzKNb)**
 
 ### Установка
-Поместить файл **TableSorting.php** в свой проект
+Поместить файл **[TableSorting.php](https://github.com/TsSaltan/DevelNext-TableSorting/blob/master/src/TableSorting.php)** в свой проект
 
 ### Использование
 ```php
