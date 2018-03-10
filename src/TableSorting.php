@@ -18,7 +18,7 @@ use php\gui\UXTableView;
  * Класс для сортировки данных в таблице
  * 
  * @author Ts.Saltan
- * @version 0.1 
+ * @version 0.2
  * @todo Отключение сортировки
  * @todo Сохранение группового выделения  
  */
@@ -50,7 +50,7 @@ class TableSorting
     /**
      * Установить правило сортировки содержимого столбца
      * @param string|array $columnId Идентификатор (или массив идентификаторов) столбца
-     * @param callable $rule Функция-правило сортировки, на входе принимает элементы $a и $b, если возвращает true - строки поменяются местами
+     * @param callable $rule Функция-правило сортировки, на входе принимает элементы $a и $b, если возвращает 1 - строки поменяются местами
      */
     public function setSortingRule($columnId, callable $rule){
         if(is_array($columnId)){
@@ -211,15 +211,21 @@ class TableSorting
     /**
      * Правило по умолчанию: попытаемся распарсить числовые значения
      */
-    private function defaultRule($a, $b) : int {
-        $a = ($this->isNumber($a)) ? floatval($a) : $a;
-        $b = ($this->isNumber($b)) ? floatval($b) : $b;
-        return ($a > $b) ? 1 : 
-               ($a < $b) ? -1 : 0;
+    public function defaultRule($a, $b) : int {
+        if($this->isNumber($a) and $this->isNumber($b)){
+            $a = floatval($a);
+            $b = floatval($b);
+            
+            $return = ($a > $b) ? 1 : 
+                      ($a < $b) ? -1 : 0;
+        } else {
+            $return = str::compare($a, $b);
+        }                  
+               
+        return $return;
     }
     
-    private function isNumber(string $string) : bool {
-        //return !Regex::of('[^0-9\.]')->with($string)->find(); // Регулярки медленные :(
-        return intval($string) == round($string);
+    public function isNumber(string $string) : bool {
+        return !Regex::of('[^0-9\.]')->with($string)->find();
     }
 }
