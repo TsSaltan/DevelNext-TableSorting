@@ -212,7 +212,7 @@ class TableSorting
      * Правило по умолчанию: попытаемся распарсить числовые значения
      */
     public function defaultRule($a, $b) : int {
-        if($this->isNumber($a) and $this->isNumber($b)){
+        if(is_numeric($a) and is_numeric($b)){
             $a = floatval($a);
             $b = floatval($b);
             
@@ -223,9 +223,5 @@ class TableSorting
         }                  
                
         return $return;
-    }
-    
-    public function isNumber(string $string) : bool {
-        return !Regex::of('[^0-9\.]')->with($string)->find();
     }
 }
